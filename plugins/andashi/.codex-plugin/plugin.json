@@ -1,0 +1,36 @@
+{
+  "name": "andashi",
+  "version": "1.0.0",
+  "description": "目的を決めない詩的連想・不条理な断片遊びと、異なる賭けの発散・反証・比較を分けて扱う汎用アイデア創出プラグイン。",
+  "author": {
+    "name": "akakeishin"
+  },
+  "keywords": [
+    "ideation",
+    "brainstorming",
+    "creative",
+    "planning",
+    "naming",
+    "poetry",
+    "association",
+    "absurdism"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "案出し",
+    "shortDescription": "無目的な連想遊びと、採用案の発散・反証を分けて深める",
+    "longDescription": "用途や意味を決めない詩的連想・不条理・音遊びはMuseで素材依存の断片へ広げ、商品・企画・物語・命名・イベント・業務改善など採用する案はCommit–Challenge Studioで異なる賭けへ発散します。Museは説明・評価・商品化を自動で足さず、Studioは人間の選択と理由付き反証を経て生存案だけを具体化します。",
+    "developerName": "akakeishin",
+    "category": "Creative",
+    "capabilities": [
+      "Ideation",
+      "Analysis",
+      "Writing"
+    ],
+    "defaultPrompt": [
+      "用途も意味も決めず、この言葉から詩的で不条理な断片を広げてください。説明や企画化はしないでください。",
+      "曖昧なテーマから、仕組みの異なる方向を先に見せてください。",
+      "既存案の核を残してありきたりさを崩し、弱点を直した別案と比較して次の一手まで出してください。"
+    ]
+  }
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "案出し"
+  short_description: "無目的な連想遊びと、採用案の発散・反証を分けて深める"
+  default_prompt: "$andashi を使って、用途を決めない素材遊びならMuseで断片だけを広げ、採用案なら異なる機構を発散・反証してください。"
