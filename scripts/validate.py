@@ -14,6 +14,8 @@ PLUGIN = ROOT / "plugins/andashi"
 MANIFEST = PLUGIN / ".codex-plugin/plugin.json"
 SKILL = PLUGIN / "skills/andashi/SKILL.md"
 OPENAI_YAML = PLUGIN / "skills/andashi/agents/openai.yaml"
+CLAUDE_SKILL_DIR = ROOT / ".claude/skills/andashi"
+CLAUDE_SKILL = CLAUDE_SKILL_DIR / "SKILL.md"
 TEST_CASES = ROOT / "submission/test-cases.json"
 
 
@@ -103,6 +105,33 @@ def validate_skill() -> None:
             fail(f"agents/openai.yaml is missing {field}")
 
 
+def validate_claude_skill() -> None:
+    text = CLAUDE_SKILL.read_text(encoding="utf-8")
+    fields = parse_frontmatter(text)
+    if set(fields) != {"name", "description"}:
+        fail("Claude SKILL.md frontmatter may contain only name and description")
+    if fields["name"] != CLAUDE_SKILL_DIR.name:
+        fail("Claude skill folder name and frontmatter name must match")
+    if not fields["description"]:
+        fail("Claude skill description must not be empty")
+    for rel in sorted(set(re.findall(r"`(references/[^`]+\.md)`", text))):
+        if not (CLAUDE_SKILL_DIR / rel).is_file():
+            fail(f"missing referenced Claude skill file: {rel}")
+
+    canonical = SKILL.parent
+    shared_files = ["SKILL.md"] + [
+        path.relative_to(canonical).as_posix()
+        for path in sorted((canonical / "references").glob("*.md"))
+    ]
+    for rel in shared_files:
+        codex_file = canonical / rel
+        claude_file = CLAUDE_SKILL_DIR / rel
+        if not claude_file.is_file():
+            fail(f"missing Claude skill file: {rel}")
+        if codex_file.read_bytes() != claude_file.read_bytes():
+            fail(f"Codex and Claude skill copies differ: {rel}")
+
+
 def validate_submission_cases() -> None:
     cases = load_json(TEST_CASES)
     if not isinstance(cases, list):
@@ -142,6 +171,7 @@ def main() -> int:
         validate_marketplace,
         validate_manifest,
         validate_skill,
+        validate_claude_skill,
         validate_submission_cases,
         validate_public_tree,
     )
@@ -151,7 +181,7 @@ def main() -> int:
     except (OSError, ValueError) as exc:
         print(f"FAIL: {exc}", file=sys.stderr)
         return 1
-    print("OK: marketplace, plugin, skill, submission cases, and public tree are valid")
+    print("OK: marketplace, Codex plugin, Claude skill, submission cases, and public tree are valid")
     return 0
 
 

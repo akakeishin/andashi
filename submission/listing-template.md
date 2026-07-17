@@ -25,4 +25,4 @@
 
 ## Release notes
 
-Initial public release. Adds Muse for material-dependent poetic exploration and Commit–Challenge workflows for ideation, refinement, comparison, and rescue across creative and practical domains.
+Version 1.1.0 adds a Claude Code skill distribution while preserving the existing Muse and Commit–Challenge behavior for Codex.
