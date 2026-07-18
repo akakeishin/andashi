@@ -50,13 +50,6 @@ Codexでは上記の `/andashi` を `$andashi` に置き換えてください。
 
 ## Codexへインストール
 
-### GitHubから
-
-~~~bash
-codex plugin marketplace add akakeishin/andashi
-codex plugin add andashi@andashi
-~~~
-
 ### ZIPから
 
 ZIPを解凍し、そのフォルダで実行します。
